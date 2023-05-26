@@ -8,7 +8,7 @@ python-nmap
 psutil
 sockets
 windows_tools.antivirus
-platform
+lib-platform
 sys
 io
 speedtest
