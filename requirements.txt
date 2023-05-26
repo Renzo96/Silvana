@@ -6,7 +6,7 @@ pymysql
 starlette
 python-nmap
 psutil
-socket
+sockets
 windows_tools.antivirus
 platform
 sys
