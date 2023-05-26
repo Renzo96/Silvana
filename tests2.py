@@ -1,7 +1,7 @@
 import nmap
 import psutil
 import socket
-import windows_tools.antivirus
+# import windows_tools.antivirus
 import platform
 import sys
 import io
@@ -136,41 +136,41 @@ def get_system_info() -> dict:
         }
 
 
-def get_antivirus() -> dict:
-    """
-    Obtiene el software antivirus instalado en el sistema.
+# def get_antivirus() -> dict:
+#     """
+#     Obtiene el software antivirus instalado en el sistema.
 
-    Returns:
-        Un diccionario que contiene el software antivirus instalado en el sistema.
-    """
+#     Returns:
+#         Un diccionario que contiene el software antivirus instalado en el sistema.
+#     """
     
-    antivirus_info = windows_tools.antivirus.get_installed_antivirus_software()
+#     antivirus_info = windows_tools.antivirus.get_installed_antivirus_software()
     
-    if antivirus_info:
-        is_up_to_date = all(av['is_up_to_date'] for av in antivirus_info)
-        if not is_up_to_date:
-            message2 = "Your antivirus is outdated, it is recommended to update it"
-            return {"Antivirus Information": antivirus_info, "Recommendation": message2}
-        else:
-            return antivirus_info
-    else:
-        message = {
-            "Antivirus Software": 'It does not have an antivirus system installed.',
-            "Recommendation": 'You should install an antivirus system on your computer to have real-time protection against virus attacks.',
-            "You can download your antivirus system from the following pages":'',
-            "Avast": 'https://www.avast.com/es-ar/lp-ppc-free-av-brand?ppc_code=012&ppc=a&gad=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ4GHwQoKrQvQFQVzabIjgTmFJL4y4q8gZMx9Kb4CQBM-ZgfyXovpChoC0SIQAvD_BwE&gclsrc=aw.ds#pc',
-            "Avira": 'https://www.avira.com/es/free-antivirus-windows',
-            "Avg Technologies": 'https://www.avg.com/es-ar/ppc/protection-offer-comparison-04?ppc_code=012&ppc=a&gad=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ3vWRkcQL_2dw3ckUml-ACvEgf6EKxSkmpl6aJpLB_UYJHO5YR10JxoClf8QAvD_BwE&gclsrc=aw.ds#pc',
-            "Bitdefender": 'https://www.bitdefender.es/media/html/consumer/new/2020/cl-offer-opt/?pid=60off&cid=ppc|c|google|60off&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ9MJvJRvFx0Dd6yoJjyb5dstXNs05q-Uug9gAO0jNToByl7jRsX5wRoC5MQQAvD_BwE',
-            "Dr Web": 'https://www.drweb-av.es/',
-            "Eset": 'https://www.eset.com/ar/' ,
-            "F-secure": 'https://www.f-secure.com/es/internet-security',
-            "Mcafee": 'https://www.mcafee.com/consumer/es-cl/landing-page/direct/sem/search-campaign.html?csrc=google&csrcl2=brand&cctype=[ES-CL][Search][Brand]%20Product%20Total%20Protection%20Antivirus&ccstype=&ccoe=direct&ccoel2=sem&pkg_id=521&affid=1485&culture=ES-CL&utm_source=google&utm_medium=SEM&utm_campaign=[ES-CL][Search][Brand]%20Product%20Antivirus&utm_content=[brand][exact]%20mcafee%20antivirus&utm_term=mcafee%20antivirus&gad=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ0nm-dEA7jb0ftwHtijlHom_dhISOBJbvTxHiwDCFLkBOWhhgTtaQBoCbnMQAvD_BwE',
-            "Panda Security": 'https://www.pandasecurity.com/security-promotion/?reg=AR&lang=es&track=99829&campaign=dome2001&option=yearly&coupon=50OFFMULTIP&selector=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQzVe2BWnT6kYlAuncd5uf4chPxIDcbNNcinVNAKggnvgU57wutX_YxoCOT8QAvD_BwE',
-            "Trend Micro": 'https://www.trendmicro.com/es_es/forHome/products/free-tools.html',
-            "Malwarebytes": 'https://es.malwarebytes.com/'
-        }
-        return message
+#     if antivirus_info:
+#         is_up_to_date = all(av['is_up_to_date'] for av in antivirus_info)
+#         if not is_up_to_date:
+#             message2 = "Your antivirus is outdated, it is recommended to update it"
+#             return {"Antivirus Information": antivirus_info, "Recommendation": message2}
+#         else:
+#             return antivirus_info
+#     else:
+#         message = {
+#             "Antivirus Software": 'It does not have an antivirus system installed.',
+#             "Recommendation": 'You should install an antivirus system on your computer to have real-time protection against virus attacks.',
+#             "You can download your antivirus system from the following pages":'',
+#             "Avast": 'https://www.avast.com/es-ar/lp-ppc-free-av-brand?ppc_code=012&ppc=a&gad=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ4GHwQoKrQvQFQVzabIjgTmFJL4y4q8gZMx9Kb4CQBM-ZgfyXovpChoC0SIQAvD_BwE&gclsrc=aw.ds#pc',
+#             "Avira": 'https://www.avira.com/es/free-antivirus-windows',
+#             "Avg Technologies": 'https://www.avg.com/es-ar/ppc/protection-offer-comparison-04?ppc_code=012&ppc=a&gad=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ3vWRkcQL_2dw3ckUml-ACvEgf6EKxSkmpl6aJpLB_UYJHO5YR10JxoClf8QAvD_BwE&gclsrc=aw.ds#pc',
+#             "Bitdefender": 'https://www.bitdefender.es/media/html/consumer/new/2020/cl-offer-opt/?pid=60off&cid=ppc|c|google|60off&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ9MJvJRvFx0Dd6yoJjyb5dstXNs05q-Uug9gAO0jNToByl7jRsX5wRoC5MQQAvD_BwE',
+#             "Dr Web": 'https://www.drweb-av.es/',
+#             "Eset": 'https://www.eset.com/ar/' ,
+#             "F-secure": 'https://www.f-secure.com/es/internet-security',
+#             "Mcafee": 'https://www.mcafee.com/consumer/es-cl/landing-page/direct/sem/search-campaign.html?csrc=google&csrcl2=brand&cctype=[ES-CL][Search][Brand]%20Product%20Total%20Protection%20Antivirus&ccstype=&ccoe=direct&ccoel2=sem&pkg_id=521&affid=1485&culture=ES-CL&utm_source=google&utm_medium=SEM&utm_campaign=[ES-CL][Search][Brand]%20Product%20Antivirus&utm_content=[brand][exact]%20mcafee%20antivirus&utm_term=mcafee%20antivirus&gad=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQ0nm-dEA7jb0ftwHtijlHom_dhISOBJbvTxHiwDCFLkBOWhhgTtaQBoCbnMQAvD_BwE',
+#             "Panda Security": 'https://www.pandasecurity.com/security-promotion/?reg=AR&lang=es&track=99829&campaign=dome2001&option=yearly&coupon=50OFFMULTIP&selector=1&gclid=CjwKCAjwjMiiBhA4EiwAZe6jQzVe2BWnT6kYlAuncd5uf4chPxIDcbNNcinVNAKggnvgU57wutX_YxoCOT8QAvD_BwE',
+#             "Trend Micro": 'https://www.trendmicro.com/es_es/forHome/products/free-tools.html',
+#             "Malwarebytes": 'https://es.malwarebytes.com/'
+#         }
+#         return message
 
 
 def speed_connection() -> dict:
