@@ -9,7 +9,6 @@ psutil
 sockets
 windows_tools.antivirus
 lib-platform
-sys
 io
 speedtest
 scapy
