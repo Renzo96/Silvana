@@ -7,7 +7,7 @@ starlette
 python-nmap
 psutil
 sockets
-windows_tools.antivirus==0.7.2
+windows-tools.antivirus
 lib-platform
 speedtest
 scapy
