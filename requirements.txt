@@ -2,3 +2,14 @@ PIP
 fastapi
 pandas
 uvicorn	
+pymysql
+starlette
+nmap
+psutil
+socket
+windows_tools.antivirus
+platform
+sys
+io
+speedtest
+scapy
