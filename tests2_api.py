@@ -113,19 +113,19 @@ def system_information(request: Request,response: Response,credentials: HTTPBasi
 
     
     
-@app.get("/antivirus_information")
-def antivirus_information(request: Request, response: Response, credentials: HTTPBasicCredentials = Depends(security)):
-    username = credentials.username
-    if username not in sessions:
-        return {"Message": "You need to log in to execute this request."}
+# @app.get("/antivirus_information")
+# def antivirus_information(request: Request, response: Response, credentials: HTTPBasicCredentials = Depends(security)):
+#     username = credentials.username
+#     if username not in sessions:
+#         return {"Message": "You need to log in to execute this request."}
     
-    #Fragmento para poder descargar info en txt
-    antivirus_info =  get_antivirus()
-    antivirus_info_str = "\n".join([f"{k}: {v}" for k, v in antivirus_info.items()])
-    response = Response(content=antivirus_info_str, media_type="text")
-    response.headers["Content-Disposition"] = "attachment; filename=información_antivirus.txt"
+#     #Fragmento para poder descargar info en txt
+#     antivirus_info =  get_antivirus()
+#     antivirus_info_str = "\n".join([f"{k}: {v}" for k, v in antivirus_info.items()])
+#     response = Response(content=antivirus_info_str, media_type="text")
+#     response.headers["Content-Disposition"] = "attachment; filename=información_antivirus.txt"
     
-    return response
+#     return response
 
 
 @app.get("/internet_speed_information")
@@ -169,4 +169,4 @@ async def logout(credentials: HTTPBasicCredentials = Depends(security)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
