@@ -4,7 +4,7 @@ pandas
 uvicorn	
 pymysql
 starlette
-nmap
+python-nmap
 psutil
 socket
 windows_tools.antivirus
