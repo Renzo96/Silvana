@@ -39,7 +39,7 @@ async def login(credentials: HTTPBasicCredentials = Depends(security)):
           #  user=db_user,
            # password=db_password,
            ## database=db_name
-        )
+        #)
        # print('Successful connection to the database')
    # except mysql.connector.Error as error:
        # print('Error connecting to the database:', error)
