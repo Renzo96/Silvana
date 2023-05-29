@@ -11,11 +11,16 @@ import os
 app = FastAPI()
 security = HTTPBasic()
 
-db_host = os.getenv("DB_HOST")
-db_port = int(os.getenv("DB_PORT"))
-db_user = os.getenv("DB_USER")
-db_password = os.getenv("DB_PASSWORD")
-db_name = os.getenv("DB_NAME")
+#db_host = os.getenv("DB_HOST")
+#db_port = int(os.getenv("DB_PORT"))
+#db_user = os.getenv("DB_USER")
+#db_password = os.getenv("DB_PASSWORD")
+#db_name = os.getenv("DB_NAME")
+
+users = {
+    "Admin": "password123",
+    "Silvana": "password456"
+}
 
 @app.get("/")
 def home():
@@ -27,37 +32,38 @@ sessions = {}
 @app.post("/login")
 async def login(credentials: HTTPBasicCredentials = Depends(security)):
     # Establishing connection with the database
-    try:
-        conexion = mysql.connector.connect(
-            host=db_host,
-            port=db_port,
-            user=db_user,
-            password=db_password,
-            database=db_name
+    #try:
+        #conexion = mysql.connector.connect(
+          #  host=db_host,
+           # port=db_port,
+          #  user=db_user,
+           # password=db_password,
+           ## database=db_name
         )
-        print('Successful connection to the database')
-    except mysql.connector.Error as error:
-        print('Error connecting to the database:', error)
+       # print('Successful connection to the database')
+   # except mysql.connector.Error as error:
+       # print('Error connecting to the database:', error)
     
-    cursor = conexion.cursor()
+   # cursor = conexion.cursor()
 
-    query = 'SELECT * FROM USUARIOS'
-    cursor.execute(query)
+   # query = 'SELECT * FROM USUARIOS'
+   # cursor.execute(query)
 
-    df = pd.read_sql_query(query, conexion)
+ #   df = pd.read_sql_query(query, conexion)
 
-    conexion.commit()
-    conexion.close()
+ #   conexion.commit()
+  #  conexion.close()
 
     username = credentials.username
     password = credentials.password
 
     # Checking valid username and password
-    if username in df['usuario'].values and password == df.loc[df['usuario'] == username, 'contraseña'].values[0]:
-        sessions[username] = True
-        return {"Message": "Login successful"}
-    else:
+    if username not in users or users[username] != password:
         raise HTTPException(status_code=401, detail="Incorrect username or password")
+        
+    else:
+        return {"Message": "Login successful"}
+        #raise HTTPException(status_code=401, detail="Incorrect username or password")
 
 
 @app.get("/network_map")
