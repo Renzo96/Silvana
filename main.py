@@ -1,20 +1,21 @@
-from fastapi import FastAPI, Request, Response,Depends, HTTPException
+from fastapi import FastAPI, Request, Response, Depends, HTTPException
 from tests2 import *
-from fastapi.responses import PlainTextResponse, FileResponse,HTMLResponse, JSONResponse
-from fastapi import Response, Depends, HTTPException, FastAPI, Form 
+from fastapi.responses import PlainTextResponse, FileResponse, HTMLResponse, JSONResponse
+from fastapi import Response, Depends, HTTPException, FastAPI, Form
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 import pandas as pd
-import pymysql
+import mysql.connector
 from starlette import responses
+import os
 
 app = FastAPI()
 security = HTTPBasic()
 
-# users = {
-#     "Admin": "password123",
-#     "Silvana": "password456"
-# }
-
+db_host = os.getenv("DB_HOST")
+db_port = int(os.getenv("DB_PORT"))
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_name = os.getenv("DB_NAME")
 
 @app.get("/")
 def home():
@@ -23,40 +24,35 @@ def home():
 
 sessions = {}
 
-#@app.get("/login")
-#async def login_form():
-    #return 
-"""
-        <form method="post">
-        <input type="text" name="username" placeholder="Enter your username"><br>
-        <input type="password" name="password" placeholder="Enter your password"><br>
-        <button type="submit">Login</button>
-        </form>
-    """
-
 @app.post("/login")
 async def login(credentials: HTTPBasicCredentials = Depends(security)):
-    #Estableciendo conexión con la base de datos
-    conexion = pymysql.connect(
-        host='localhost',
-        database='database_silvana',
-        user='root',
-        password='root',
-    )
+    # Establishing connection with the database
+    try:
+        conexion = mysql.connector.connect(
+            host=db_host,
+            port=db_port,
+            user=db_user,
+            password=db_password,
+            database=db_name
+        )
+        print('Successful connection to the database')
+    except mysql.connector.Error as error:
+        print('Error connecting to the database:', error)
+    
     cursor = conexion.cursor()
 
     query = 'SELECT * FROM USUARIOS'
     cursor.execute(query)
 
     df = pd.read_sql_query(query, conexion)
-    
+
     conexion.commit()
     conexion.close()
 
     username = credentials.username
     password = credentials.password
 
-    #Chequeo de usuario y contraseña válido
+    # Checking valid username and password
     if username in df['usuario'].values and password == df.loc[df['usuario'] == username, 'contraseña'].values[0]:
         sessions[username] = True
         return {"Message": "Login successful"}
