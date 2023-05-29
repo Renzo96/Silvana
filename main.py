@@ -12,7 +12,7 @@ app = FastAPI()
 security = HTTPBasic()
 
 db_host = os.getenv("DB_HOST")
-#db_port = int(os.getenv("DB_PORT"))
+db_port = int(os.getenv("DB_PORT"))
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
@@ -30,7 +30,7 @@ async def login(credentials: HTTPBasicCredentials = Depends(security)):
     try:
         conexion = mysql.connector.connect(
             host=db_host,
-            #port=db_port,
+            port=db_port,
             user=db_user,
             password=db_password,
             database=db_name
@@ -165,4 +165,4 @@ async def logout(credentials: HTTPBasicCredentials = Depends(security)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=10000)
