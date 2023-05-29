@@ -42,7 +42,6 @@ async def login(credentials: HTTPBasicCredentials = Depends(security)):
         database='database_silvana',
         user='root',
         password='root',
-        port = 3306
     )
     cursor = conexion.cursor()
 
