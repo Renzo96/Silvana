@@ -2,7 +2,7 @@ PIP
 fastapi
 pandas
 uvicorn	
-mysql.connector
+mysql-connector-python
 starlette
 python-nmap
 psutil
