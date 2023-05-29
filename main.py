@@ -61,8 +61,8 @@ async def login(credentials: HTTPBasicCredentials = Depends(security)):
     if username not in users or users[username] != password:
         raise HTTPException(status_code=401, detail="Incorrect username or password")
         
-    else:
-        return {"Message": "Login successful"}
+    sessions[username] = True
+    return {"Message": "Login successful"
         #raise HTTPException(status_code=401, detail="Incorrect username or password")
 
 
